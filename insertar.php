@@ -9,7 +9,23 @@ $descripcion = $_POST["descripcion"];
 $urlimagen = $_POST["urlimagen"];
 
 
-$insertar = "INSERT INTO mascota (nombre, tipo, raza, fecha_nac, descripcion, urlimagen) VALUES('$nombre','$tipo','$raza','$fecha_nac','$descripcion','$urlimagen')";
-echo $insertar;
-mysqli_query($conexion, $insertar);
+
+$sql ="SELECT MAX(idmascota) as maximo FROM mascota";
+     
+     $res = mysqli_query($conexion,$sql);
+     
+     $id = 0;
+     
+     while($row = mysqli_fetch_array($res)){
+        $id = $row['maximo'];
+     }
+$path = "imagenes/$id.jpg";
+
+$insertar = "INSERT INTO mascota (nombre, tipo, raza, fecha_nac, descripcion, urlimagen) VALUES('$nombre','$tipo','$raza','$fecha_nac','$descripcion','$path')";
+
+
+if(mysqli_query($conexion,$insertar)){
+    file_put_contents($path,base64_decode($urlimagen));
+    echo "Insertado con Exito";
+}
 mysqli_close($conexion);
