@@ -17,9 +17,9 @@ $sql ="SELECT MAX(idmascota) as maximo FROM mascota";
      $id = 0;
      
      while($row = mysqli_fetch_array($res)){
-        $id = $row['maximo'];
+        $id = $row['maximo']+1;
      }
-$path = "imagenes/$id.jpg";
+$path = "imagenes/$id.jpeg";
 
 $insertar = "INSERT INTO mascota (nombre, tipo, raza, fecha_nac, descripcion, urlimagen) VALUES('$nombre','$tipo','$raza','$fecha_nac','$descripcion','$path')";
 
