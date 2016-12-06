@@ -1,7 +1,10 @@
 <?php
 include ('Conectarse.php');
 $conexion = Conectar();
-$consulta = "SELECT idevento, idmascota, titulo, descripcion, fecha, peso, url_imagen FROM evento";
+
+$mascota = $_POST["mascota"];
+
+$consulta = "SELECT idevento, idmascota, titulo, descripcion, fecha, peso, url_imagen FROM evento WHERE idmascota = $mascota";
 $resultado = mysqli_query($conexion, $consulta);
 $jsonarray = array();
 if(mysqli_num_rows($resultado)){
